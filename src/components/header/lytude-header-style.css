@@ -1,0 +1,151 @@
+:root {
+    --nav-p-color: #7099ff;
+    --navbar-color: #7099ff;
+    --nav-p-color-hover: rgb(50, 50, 50);
+    --nav-active-p-color: #FF0000;
+    --nav-active-p-color-hover: #ca0000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --nav-p-color: #7099ff;
+        --navbar-color: #7099ff;
+        --nav-p-color-hover: rgb(175, 175, 175);
+        --nav-active-p-color: #FF0000;
+        --nav-active-p-color-hover: #ca0000;
+    }
+}
+
+.lytudeheader {
+    height: fit-content;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    box-sizing: border-box;
+    /* background-color: var(--rgba); */
+    background-color: rgba(255, 255, 255, .1);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    z-index: 20;
+    border-radius: 0px 0px 20px 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lytudeheader.open {
+    background-color: rgba(255, 255, 255, 0.25); /* 128 */
+    transition: 0.25s linear;
+}
+
+.link {
+    color: var(--nav-p-color);
+    transition: 0.1s linear;
+}
+
+.link:hover {
+    /* color: var(--nav-p-color-hover); */
+    color: var(--nav-p-color);
+    opacity: 0.5;
+}
+.link.active{
+    color: var(--nav-active-p-color);
+}
+
+.link.active:hover {
+    /* color: var(--nav-active-p-color-hover); */
+    color: var(--nav-active-p-color);
+    opacity: 0.5;
+}
+
+.burger {
+    /* display: flex; */
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+    align-items: center;
+}
+.burger:hover {
+    /* display: flex; */
+    opacity: 0.5;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    border-radius: 2.5px 2.5px 0 0;
+    background-color: var(--navbar-color);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.bar.open:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.bar.open:nth-child(2) {
+    opacity: 0;
+}
+
+.bar.open:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.bigNav {
+    display: inherit;
+}
+
+.miniNav {
+    height: 0;
+    overflow: hidden;
+}
+
+.unscrolled {
+    color: white;
+    transition: 0.1s linear;
+}
+
+.unscrolled:hover {
+    color: white;
+    opacity: 0.5;
+}
+
+.unscrolledE {
+    background-color: white;
+    transition: 0.1s linear;
+}
+
+/* lytude-header-style.css */
+.logo {
+  width: auto;
+  height: 17.5px;
+  padding-top: 5px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.logo {
+    content: url("/assets/images/logos/(cropped, dark) Soundlytude logo.png");
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+  content: url("/assets/images/logos/(cropped) Soundlytude logo.png");
+  }
+}
+
+
+@media (max-width: 768px) {
+    .burger {
+        display: flex;
+    }
+    .bigNav {
+        display: none;
+    }
+}
