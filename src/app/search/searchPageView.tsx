@@ -9,6 +9,7 @@ import Image from 'next/image';
 import ArtistNameFormatter from '@/utils/artistNameFormatter';
 import Link from 'next/link';
 import ExplicitTitleFormatter from '@/utils/explicitTitleFormatter';
+import { resolveContentURL } from '@/utils/resolveContentURL';
 
 interface SearchPageViewProps {
     initialSuggestions: SearchSuggestion[];
@@ -196,7 +197,7 @@ function listArtistView(artist: Search) {
     return (
         <HStack key={artist._id} style={{ width: "100%" }} align="center" justify="flex-start">
             {/* {item.title} */}
-            <Image src={artist.thumbnail ?? ""} width={256} height={256} alt={artist.title}
+            <Image src={resolveContentURL(artist.thumbnail, "scaledToFill", { width: 256, height: 256 })} width={256} height={256} alt={artist.title}
                 style={{
                     width: "64px", height: "64px", objectFit: "cover", margin: "10px",
                     borderRadius: `${artist.type.toLowerCase() == "artist" ? "50%" : "5px 5px 0 0"}`
@@ -221,7 +222,7 @@ function listOtherView(item: Search) {
     return (
         <HStack key={item._id + item.type} style={{ width: "100%" }} align="center" justify="flex-start">
             {/* {item.title} */}
-            <Image src={item.thumbnail ?? ""} width={256} height={256} alt={item.title}
+            <Image src={resolveContentURL(item.thumbnail, "scaledToFill", { width: 256, height: 256 })} width={256} height={256} alt={item.title}
                 style={{
                     width: "64px", height: "64px", objectFit: "cover", margin: "10px", boxShadow: "0px 0px 5px #7099ff40",
                     borderRadius: `${item.type.toLowerCase() == "artist" ? "50%" : "5px 5px 0 0"}`

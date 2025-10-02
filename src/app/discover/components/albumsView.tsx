@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import ArtistNameFormatter from "@/utils/artistNameFormatter";
+import { resolveContentURL } from "@/utils/resolveContentURL";
 
 type Props = {
     data: Album[];
@@ -89,7 +90,7 @@ function AlbumCard(item: Album) {
         <VStack style={{ width: "clamp(192px, 15vw, 256px)" }}>
             <Link href={`/album/${item.slug}`}>
                 <Image
-                    src={item.coverArt ?? ""}
+                    src={resolveContentURL(item.coverArt, "scaledToFill", { width: 256, height: 256 })}
                     alt={item.title}
                     width={1024}
                     height={1024}

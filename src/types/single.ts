@@ -11,9 +11,9 @@ export interface Single {
   genre: string;
   description: string; 
   streamsCount: bigint; 
-  fullSong: boolean; 
   group: string; 
   explicit: boolean; 
+  available: boolean;
   slug: string; 
   releaseDate: Date; 
   _createdDate: Date; 

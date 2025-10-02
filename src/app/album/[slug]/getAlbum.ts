@@ -15,6 +15,8 @@ export const getAlbum = cache(async (slug: string) => {
     
   const url = `${process.env.NEXT_PUBLIC_API_URL}/get-albums?p=${password}&&all=false&&limit=1`;
 
+  // console.log("NEGRITA NIFF")
+
   const { data, error, success } = await fetchWithState<Album[]>(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json',

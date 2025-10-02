@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import AlbumDetailsView from './components/albumDetailsView';
 import { TrackModal } from './components/trackModal';
 import DateUtil from '@/utils/dateUtil';
+import { resolveContentURL } from '@/utils/resolveContentURL';
 
 // REVALIDATE (ISR): Regenerates the page every 60 seconds
 export const revalidate = 60;
@@ -30,7 +31,7 @@ export async function generateMetadata({
 
   const title = `${album.title} by ${album.artistDetails.artistName} on Soundlytude`;
   const description = `Album • ${DateUtil.getYear(album.releaseDate)} • ${album.tracksCount} Song${album.tracksCount > 1 ? "s" : ""}`;
-  const art = album.coverArt;
+  const art = resolveContentURL(album.coverArt, "scaledToFill", { width: 256, height: 256 });
 
   return {
     title,
@@ -53,6 +54,10 @@ export async function generateMetadata({
       description,
       images: [art],
     },
+    other: {
+      // 👇 This is the Smart App Banner
+      "apple-itunes-app": `app-id=6503627263, app-argument=soundlytude://app/album/${album._id}`,
+    }
     // Optional, only if using relative image URLs:
     // metadataBase: new URL(process.env.SITE_URL ?? ""),
   };

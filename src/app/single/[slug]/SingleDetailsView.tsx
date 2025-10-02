@@ -23,6 +23,7 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
         genre,
         streamsCount,
         releaseDate,
+        available
     } = single;
 
 
@@ -35,7 +36,7 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
 
                 <div className='ADV-horizontal-display'>
                     <HStack gap="40px" align='flex-end' style={{ flexWrap: "wrap", padding: "0 20px" }}>
-                        <Image src={resolveContentURL(coverArt)} alt={title} width="1024" height="1024"
+                        <Image src={resolveContentURL(coverArt, "scaledToFill", { width: 512, height: 512 })} alt={title} width="1024" height="1024"
                             style={{
                                 width: "auto", height: "200px", maxWidth: "100%",
                                 borderRadius: "5px 5px 0 0", objectFit: "contain", boxShadow: "0 0 60px #55555540"
@@ -49,14 +50,14 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
                             </div>
                             <p style={{ padding: 0, margin: 0 }}>{`${genre} ⦿ ${DateUtil.simpleDate(releaseDate)}`}</p>
                             <div style={{ height: "10px" }}></div>
-                            <button className='button' style={{ color: "#7099ff" }}>Play in the App</button>
+                            {/* <button className='button' style={{ color: "#7099ff" }}>Play in the App</button> */}
                         </VStack>
                     </HStack>
                 </div>
 
                 <div className='ADV-vertical-display' style={{ width: "100%" }}>
                     <VStack gap="40px" align='center' style={{ flexWrap: "wrap", padding: "0 20px" }}>
-                        <Image src={resolveContentURL(coverArt)} alt={title} width="1024" height="1024"
+                        <Image src={resolveContentURL(coverArt, "scaledToFill", { width: 512, height: 512 })} alt={title} width="1024" height="1024"
                             style={{
                                 width: "auto", height: "200px", maxWidth: "100%",
                                 borderRadius: "5px 5px 0 0", objectFit: "contain", boxShadow: "0 0 60px #55555540"
@@ -71,7 +72,7 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
                             <p style={{ padding: 0, margin: 0, textAlign: "center" }}>{`${genre} ⦿ ${DateUtil.simpleDate(releaseDate)}`}</p>
                         </VStack>
                         <Link href={`soundlytude://app/single/${_id}`}>
-                            <button className='button' style={{ color: "#7099ff" }}>Play in the App</button>
+                            {/* <button className='button' style={{ color: "#7099ff" }}>Play in the App</button> */}
                         </Link>
                     </VStack>
                 </div>
@@ -80,7 +81,7 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
 
                 <div style={{ width: '100%', height: "clamp(60px, 10vw, 100px)", justifyContent: 'center', alignItems: 'center', padding: "0 20px" }}>
                     <ClientPlayerView audio={audio} title={title} artistName={artistDetails.artistName}
-                        featuringArtists={featuredArtists} artwork={coverArt} />
+                        featuringArtists={featuredArtists} artwork={coverArt} available={available} releaseDate={releaseDate}/>
                 </div>
 
 
@@ -106,7 +107,7 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
 
                     .ADV-vstack {
                         // background-image: url("https://i.scdn.co/image/ab67616d00001e02d02311f945cb56a97011a9f7");
-                        background-image: url("${resolveContentURL(single.coverArt)}");
+                        background-image: url("${resolveContentURL(single.coverArt, "scaledToFill", { width: 64, height: 64 })}");
                         background-color: #7099ff;
                         height: 750px;
                         width: 100%;
@@ -117,7 +118,7 @@ const SingleDetailsView = ({ single }: { single: Single }) => {
                         top: 0;
                         z-index: -1;
                         filter: blur(100px) saturate(200%);
-                        opacity: 0.35;
+                        opacity: 0.25;
                         mask-image: linear-gradient(to bottom, 
                         rgba(0, 0, 0, 0) 0%, 
                         rgba(0, 0, 0, 0.5) 1%, 

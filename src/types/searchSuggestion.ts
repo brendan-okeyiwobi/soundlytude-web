@@ -5,5 +5,5 @@ export interface SearchSuggestion {
   title?: string;
   type?: string;
   verified?: boolean;
-  profilePicture?: string;
+  coverArt?: string;
 };

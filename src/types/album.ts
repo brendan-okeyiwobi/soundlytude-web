@@ -9,6 +9,7 @@ export interface Album {
   coverArt: string;
   genre: string;
   description: string; 
+  available: boolean;
   releaseDate: Date;
   streamsCount: bigint; 
   tracksCount: number; 
