@@ -32,7 +32,7 @@ const ArtistDetailsView = ({ artist, music }: { artist: Artist, music: AlbumSing
                     justify="flex-end"
                     align="flex-start"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url("${resolveContentURL(profilePicture)}")`,
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url("${resolveContentURL(profilePicture, "scaledToFill", { width: 1024, height: 1024 })}")`,
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
                         width: "100%",
@@ -99,7 +99,7 @@ const ArtistDetailsView = ({ artist, music }: { artist: Artist, music: AlbumSing
 
                     .ADV-vstack {
                         // background-image: url("https://i.scdn.co/image/ab67616d00001e02d02311f945cb56a97011a9f7");
-                        background-image: url("${resolveContentURL(profilePicture)}");
+                        background-image: url("${resolveContentURL(profilePicture, "scaledToFill", { width: 512, height: 512 })}");
                         background-color: #7099ff;
                         height: 750px;
                         width: 100%;
@@ -171,7 +171,7 @@ function AlbumSingleCard(item: AlbumSingle) {
         <VStack>
             <Link href={`/${item.type.toLowerCase() == "single" ? "single" : "album"}/${item.slug}`}>
                 <Image
-                    src={item.coverArt ?? ""}
+                    src={resolveContentURL(item.coverArt, "scaledToFill", { width: 256, height: 256 })}
                     alt={item.title}
                     width={512}
                     height={512}

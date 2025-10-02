@@ -17,6 +17,8 @@ export const getHomepage = cache(async () => {
       Authorization: `${process.env.NEXT_PUBLIC_AUTH}` }
   });
 
+  // console.log(data)
+
   if (!success || !data || data.length === 0) {
     return { homepage: null, error };
   }

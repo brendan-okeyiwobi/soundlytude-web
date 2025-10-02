@@ -16,6 +16,8 @@ type Props = {
     featuringArtists: [string];
     artwork: string;
     audio: string;
+    releaseDate: Date;
+    available: boolean;
 };
 
 export function ClientPlayerView(player: Props) {
@@ -33,7 +35,7 @@ export function ClientPlayerView(player: Props) {
                 title: player.title,
                 artist: player.artistName,
                 artwork: [
-                    { src: resolveContentURL(player.artwork, null, { width: 512, height: 512 }), sizes: '512x512', type: 'image/jpeg' }
+                    { src: resolveContentURL(player.artwork, "scaledToFill", { width: 512, height: 512 }), sizes: '512x512', type: 'image/jpeg' }
                 ]
             });
 
@@ -66,7 +68,13 @@ export function ClientPlayerView(player: Props) {
         <HStack gap='10px' style={{ height: "100%", }}>
             <PlayPauseButton
                 isPlaying={isPlaying}
-                onClick={() => wavesurfer?.playPause()}
+                onClick={() => {
+                    if (player.available && (new Date(player.releaseDate) <= new Date())){
+                    wavesurfer?.playPause()
+                    }else{
+                        alert("Not available: This content is not availble to be played yet")
+                    }
+                }}
             />
             <div style={{ width: '100%' }}>
                 {isLoading && (

@@ -146,9 +146,7 @@ export function TrackModal({ tracks }: Props) {
                     <HStack align="flex-start">
                         <ZStack alignment="center">
                             <Image
-                                src={resolveContentURL(
-                                    openTrack.albumDetails.coverArt,
-                                )}
+                                src={resolveContentURL(openTrack.albumDetails.coverArt, "scaledToFill", { width: 400, height: 400 })}
                                 alt={openTrack.albumDetails.coverArt}
                                 width="512"
                                 height="512"

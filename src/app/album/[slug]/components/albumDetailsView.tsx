@@ -20,20 +20,23 @@ const AlbumDetailsView = ({ album, tracks }: { album: Album; tracks: Track[] }) 
         genre,
         streamsCount,
         releaseDate,
+        available
     } = album;
 
     return (
         <div>
-        <div className="ADV-vstack" />
+            <div className="ADV-vstack" />
             <VStack className="inner-content" align='flex-start' style={{ padding: "20px 0" }}>
 
                 <div style={{ height: "80px" }}></div>
 
                 <div className='ADV-horizontal-display'>
                     <HStack gap="40px" align='flex-end' style={{ flexWrap: "wrap", padding: "0 20px" }}>
-                        <Image src={resolveContentURL(coverArt)} alt={title} width="1024" height="1024"
-                            style={{ width: "auto", height: "200px", maxWidth: "100%", 
-                                borderRadius: "5px 5px 0 0", objectFit: "contain", boxShadow: "0 0 60px #55555540" }}
+                        <Image src={resolveContentURL(coverArt, "scaledToFill", { width: 512, height: 512 })} alt={title} width="512" height="512"
+                            style={{
+                                width: "auto", height: "200px", maxWidth: "100%",
+                                borderRadius: "5px 5px 0 0", objectFit: "contain", boxShadow: "0 0 60px #55555540"
+                            }}
                         />
                         <VStack gap="0" align='flex-start'>
                             <h2 style={{ padding: 0, margin: 0 }}>{title}</h2>
@@ -43,24 +46,26 @@ const AlbumDetailsView = ({ album, tracks }: { album: Album; tracks: Track[] }) 
                             </div>
                             <p style={{ padding: 0, margin: 0 }}>{`${genre} ⦿ ${DateUtil.simpleDate(releaseDate)}`}</p>
                             <div style={{ height: "10px" }}></div>
-                            <button className='button' style={{ color: "#7099ff" }}>Play in the App</button>
+                            {/* <button className='button' style={{ color: "#7099ff" }}>Play in the App</button> */}
                         </VStack>
                     </HStack>
                 </div>
 
                 <div className='ADV-vertical-display' style={{ width: "100%" }}>
                     <VStack gap="40px" align='center' style={{ flexWrap: "wrap", padding: "0 20px" }}>
-                        <Image src={resolveContentURL(coverArt)} alt={title} width="1024" height="1024"
-                            style={{ width: "auto", height: "200px", maxWidth: "100%", 
-                                borderRadius: "5px 5px 0 0", objectFit: "contain", boxShadow: "0 0 60px #55555540"  }}
+                        <Image src={resolveContentURL(coverArt, "scaledToFill", { width: 512, height: 512 })} alt={title} width="1024" height="1024"
+                            style={{
+                                width: "auto", height: "200px", maxWidth: "100%",
+                                borderRadius: "5px 5px 0 0", objectFit: "contain", boxShadow: "0 0 60px #55555540"
+                            }}
                         />
                         <VStack gap="0" align='center'>
-                            <h2 style={{ padding: 0, margin: 0, textAlign: "center"}}>{title}</h2>
+                            <h2 style={{ padding: 0, margin: 0, textAlign: "center" }}>{title}</h2>
                             <div style={{ fontFamily: "Futura" }}>
                                 <ArtistNameFormatter artistName={artistDetails.artistName} verification={artistDetails.verified == true}
                                     featuredArtists={[]} username={artistDetails.username} />
                             </div>
-                            <p style={{ padding: 0, margin: 0, textAlign: "center"}}>{`${genre} ⦿ ${DateUtil.simpleDate(releaseDate)}`}</p>
+                            <p style={{ padding: 0, margin: 0, textAlign: "center" }}>{`${genre} ⦿ ${DateUtil.simpleDate(releaseDate)}`}</p>
                         </VStack>
                         {/* <Link href={`soundlytude://app/album/${_id}`}>
                             <button className='button' style={{ color: "#7099ff" }}>Play in the App</button>
@@ -78,15 +83,29 @@ const AlbumDetailsView = ({ album, tracks }: { album: Album; tracks: Track[] }) 
                 <div style={{ height: "40px" }}></div>
 
                 {tracks.map((track) => (
-                    <Link key={track._id.toString()} href={`#${track._id}`} scroll={false} style={{ width: "100%" }}>
-                        <TrackRowView
-                            _id={track._id}
-                            trackNumber={track.trackNumber}
-                            title={track.title}
-                            explicit={track.explicit}
-                            streamsCount={track.streamsCount}
-                        />
-                    </Link>
+                    <div key={track._id.toString()} style={{ width: "100%" }} >
+                        {(available && (releaseDate <= new Date())) ?
+                            <Link href={`#${track._id}`} scroll={false}>
+                                <TrackRowView
+                                    _id={track._id}
+                                    trackNumber={track.trackNumber}
+                                    title={track.title}
+                                    explicit={track.explicit}
+                                    streamsCount={track.streamsCount}
+                                />
+                            </Link>
+                            :
+                            <div>
+                                <TrackRowView
+                                    _id={track._id}
+                                    trackNumber={track.trackNumber}
+                                    title={track.title}
+                                    explicit={track.explicit}
+                                    streamsCount={track.streamsCount}
+                                />
+                            </div>
+                        }
+                    </div>
                 ))}
 
                 <div style={{ height: "40px" }}></div>
@@ -109,7 +128,7 @@ const AlbumDetailsView = ({ album, tracks }: { album: Album; tracks: Track[] }) 
 
                     .ADV-vstack {
                         // background-image: url("https://i.scdn.co/image/ab67616d00001e02d02311f945cb56a97011a9f7");
-                        background-image: url("${resolveContentURL(album.coverArt)}");
+                        background-image: url("${resolveContentURL(album.coverArt, "scaledToFill", { width: 64, height: 64 })}");
                         background-color: #7099ff;
                         height: 750px;
                         width: 100%;

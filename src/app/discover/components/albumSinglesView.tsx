@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import ArtistNameFormatter from "@/utils/artistNameFormatter";
+import { resolveContentURL } from "@/utils/resolveContentURL";
 
 type Props = {
     data: AlbumSingle[];
@@ -88,7 +89,7 @@ function AlbumSingleCard(item: AlbumSingle) {
                 }/${item.slug}`}
             >
                 <Image
-                    src={item.coverArt ?? ""}
+                    src={resolveContentURL(item.coverArt, "scaledToFill", { width: 512, height: 512 })}
                     alt={item.title}
                     width={512}
                     height={512}

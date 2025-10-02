@@ -12,6 +12,7 @@ import ArtistNameFormatter from "@/utils/artistNameFormatter";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import { resolveContentURL } from "@/utils/resolveContentURL";
 
 type Props = {
     data: Artist[];
@@ -112,7 +113,7 @@ function ArtistCard({ item }: { item: Artist }) {
                 style={{ width: "clamp(128px, 10vw, 192px)" }}
             >
                 <Image
-                    src={item.profilePicture ?? ""}
+                    src={resolveContentURL(item.profilePicture, "scaledToFill", { width: 512, height: 512 })}
                     alt={item.artistName}
                     width={512}
                     height={512}

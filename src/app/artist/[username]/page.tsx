@@ -5,6 +5,7 @@ import { getArtist } from './getArtist';
 import ArtistDetailsView from './artistView';
 import type { Metadata } from 'next';
 import { getMusic } from './getMusic';
+import { resolveContentURL } from '@/utils/resolveContentURL';
 
 export async function generateMetadata({
   params,
@@ -23,7 +24,11 @@ export async function generateMetadata({
   }
 
   const title = `${artist.artistName} on Soundlytude`;
-  const description = `${artist.bio}`;
+  let description = `${artist.bio}. ${artist.about}`;
+  if (description.length > 160) {
+    description = description.slice(0, 157) + '...';  // Leave space for ellipsis
+  }
+  const pfp = resolveContentURL(artist.profilePicture, "scaledToFill", { width: 256, height: 256 })
 
   return {
     title,
@@ -33,7 +38,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          url: artist.profilePicture ?? "", // full URL
+          url: pfp, // full URL
           width: 1200,
           height: 600,
           alt: `${artist.artistName}`,
@@ -44,8 +49,12 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title,
       description,
-      images: [artist.profilePicture ?? ""],
+      images: [pfp],
     },
+    other: {
+      // 👇 This is the Smart App Banner
+      "apple-itunes-app": `app-id=6503627263, app-argument=soundlytude://app/artist/${artist._id}`,
+    }
     // Optional, only if using relative image URLs:
     // metadataBase: new URL(process.env.SITE_URL ?? ""),
   };
@@ -63,7 +72,7 @@ export default async function ArtistPage({
 
   const { music } = await getMusic(username);
 
-//   const { tracks, tracksError } = await getTracks(album?._id ?? BigInt("-1"));
+  //   const { tracks, tracksError } = await getTracks(album?._id ?? BigInt("-1"));
 
   if (!artist) {
     console.warn('[artistPage] Error:', error);

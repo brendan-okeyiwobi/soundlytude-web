@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         hostname: 'soundlytude.b-cdn.net',
         port: '',
         pathname: '/**',
+      },{
+        protocol: 'https',
+        hostname: '*',
+        port: '',
+        pathname: '/**',
       },
     ],
   }

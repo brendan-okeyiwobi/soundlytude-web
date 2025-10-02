@@ -18,7 +18,7 @@ import { Advert } from '@/types/advert';
 
 export async function generateMetadata() {
   return {
-    title: "Discover",
+    title: "DiscoverED",
     description:
       "More than DJ bon26 discover new Songs from various artists as well",
     metadataBase: new URL("https://lytude.com"),
@@ -41,17 +41,21 @@ const HomePageLogicView = async () => {
 
         switch (type) {
           case "advert":
-            if ("imageUrl" in (item.content ?? {})) {
-              return (
-                <AdvertView
-                  key={index}
-                  data={item.content as Advert}
-                  title={item.title}
-                  displaySize={size}
-                />
-              );
-            }
-            return <p key={index}>Invalid advert data</p>;
+            // if ("source" in (item.content ?? {})) {
+            return (
+              <AdvertView
+                key={index}
+                content={
+                  Array.isArray(item.content)
+                    ? (item.content[0] as unknown as Advert)
+                    : (item.content as unknown as Advert)
+                }
+                title={item.title}
+                displaySize={size}
+              />
+            );
+          // }
+          // return <p key={index}>Invalid advert data</p>;
 
           case "artist":
             if (Array.isArray(item.content)) {
